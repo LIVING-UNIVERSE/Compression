@@ -1,5 +1,5 @@
 #include<iostream>
-#include "compressapi.h"
+#include "compressor.h"
 #include<unordered_map>
 #include<vector>
 #include<fstream>
@@ -50,7 +50,7 @@ HuffmanNode* buildHuffmanTree(priority_queue<HuffmanNode* ,vector<HuffmanNode*>,
 }
 
 
-void generateHuffmanCodes(HuffmanNode* head,unordered_map<char,string> & m,string &s){
+void generateHuffmanCodes(HuffmanNode* head,unordered_map<char,string> & m,string s){
     if(head==NULL) return ;
     if(head->left==NULL && head->right ==NULL){
         m[head->ch]=s;
@@ -132,7 +132,7 @@ void compressFile(string &inputFile, string &outputFile){
         encodedString+=HuffmanCodes[chr];
     }
 
-    int padding=8-encodedString.size()%8;
+    unsigned char padding=8-encodedString.size()%8;
     if(padding!=8){
         while(padding--){
             encodedString+='0';
